@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import About from "./components/About";
 import NoteState from "./context/notes/NoteState";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
             <Routes>
               <Route exact path="/" Component={Home} />
               <Route path="/about" Component={About} />
+              <Route path="/login" element={<Login/>} />
+              <Route path="/signup" element={<Signup/>} />
             </Routes>
           </div>
         </Router>
