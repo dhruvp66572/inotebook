@@ -15,7 +15,7 @@ const NoteState = (props) => {
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-          localStorage.getItem('token ')
+          localStorage.getItem('token')
       },
     });
 
@@ -31,7 +31,7 @@ const NoteState = (props) => {
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-          localStorage.getItem('token '),
+          localStorage.getItem('token'),
       },
       body: JSON.stringify({ title, description, tag }),
     });
@@ -48,7 +48,7 @@ const NoteState = (props) => {
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-        localStorage.getItem('token '),
+        localStorage.getItem('token'),
       },
     });
     
@@ -70,7 +70,7 @@ const NoteState = (props) => {
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-        localStorage.getItem('token '),
+        localStorage.getItem('token'),
       },
       body: JSON.stringify({ title, description, tag }),
     });
