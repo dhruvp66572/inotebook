@@ -19,10 +19,11 @@ router.post(
     }),
   ],
   async (req, res) => {
+    let success = false
     // if there are Errors, return bad request and errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({success, errors: errors.array() });
       
     }
 
@@ -32,7 +33,7 @@ router.post(
       if (user) {
         return res
         .status(400)
-        .json("Sorry a user with this email already exists");
+        .json(success,"Sorry a user with this email already exists");
       }
       const salt = await bcrypt.genSalt(10);
       const secPass = await bcrypt.hash(req.body.password, salt);
@@ -52,7 +53,8 @@ router.post(
       
       const authtoken = jwt.sign(data, JWT_SECRET);
 
-      res.json({authtoken });
+      success = true
+      res.json({success,authtoken});
       //   res.json(user);
     } catch (error) {
       console.error(error.message);
@@ -71,6 +73,7 @@ router.post(
     body("password", "Password cannot be blank").exists(),
   ],
   async (req, res) => {
+    let success = false
     // if there are Errors, return bad request and errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

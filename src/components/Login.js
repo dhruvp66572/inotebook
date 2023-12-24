@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {useNavigate} from 'react-router-dom'
 
-const Login = () => {
+const Login = (props) => {
 
 const [credential, setCredential] = useState({email:"",password:""})
 let history =  useNavigate()
@@ -23,9 +23,10 @@ let history =  useNavigate()
         // Save the auth token and Redirect 
         localStorage.setItem('token',json.authtoken)
         history('/')
+        props.showAlert("Logged in Successfully","success")
     }
     else{
-        alert("Invalid Credentials")
+      props.showAlert("Invalid Details","Danger")
     }
   };
 
@@ -48,9 +49,6 @@ let history =  useNavigate()
             value={credential.email}
             onChange={handlechange}
           />
-          <div id="emailHelp" className="form-text">
-            We'll never share your email with anyone else.
-          </div>
         </div>
         <div className="mb-3">
           <label htmlFor="Password" className="form-label">

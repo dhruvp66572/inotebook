@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import noteContext from "../context/notes/notesContext";
 
-const AddNote1 = () => {
+const AddNote1 = (props) => {
   const context = useContext(noteContext);
   const { addNote } = context;
   // eslint-disable-next-line
@@ -12,6 +12,7 @@ const AddNote1 = () => {
     e.preventDefault();
     addNote(Note.title, Note.description, Note.tag);
     setNote({ title: "", description: "", tag: "DP" });
+    props.showAlert("Added Successfully", "success");
   };
   const handlechange = (e) => {
     setNote({ ...Note, [e.target.name]: e.target.value });
