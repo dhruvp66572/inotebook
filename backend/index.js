@@ -1,10 +1,15 @@
+const env = require('dotenv');
+
 const connectToMongo = require('./db');
 const express = require('express');
+
+env.config();
+
 
 connectToMongo();
 
 const app = express()
-const port = 5000
+const port = 5000 || process.env.PORT
 var cors = require('cors')
 
 app.use(express.json()); 
@@ -15,5 +20,5 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/notes', require('./routes/notes'));
 
 app.listen(port,()=>{
-    console.log(`iNotebook Backend Listening at http://localhost:${port}`)
+    console.log(`iNotebook Backend Listening at ${port}`)
 })
