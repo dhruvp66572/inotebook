@@ -3,13 +3,11 @@ import NoteContext from "./notesContext";
 
 const NoteState = (props) => {
   const host = process.env.REACT_APP_API_URL;
-  console.log(host);
   const noteInitial = [];
   const [notes, setNotes] = useState(noteInitial);
 
   // Get All  Note
   const getNotes = async () => {
-    console.log("adding a new Note");
     // API Call
     const response = await fetch(`${host}/api/notes/fetchallnotes`, {
       method: "GET",
@@ -21,8 +19,7 @@ const NoteState = (props) => {
     });
 
     const json1 = await response.json();
-    console.log(json1);
-    setNotes(json1);
+   setNotes(json1);
   };  
 
   // Add a Note
@@ -54,9 +51,7 @@ const NoteState = (props) => {
       },
     });
     
-    const json = await response.json();
-    console.log(json+"Delete Note");
-    
+  
     console.log("Deleting the  with id" + id);
     const newnotes = notes.filter((note) => {
       return note._id !== id;
@@ -76,9 +71,6 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    
-    const json = await response.json();
-    console.log(json+"Edit");
     
     let newNotes = JSON.parse(JSON.stringify(notes));
     // Logic to edit in client
