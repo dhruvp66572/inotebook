@@ -18,7 +18,7 @@ function Notes(props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterTag, setFilterTag] = useState("");
   const [sortBy, setSortBy] = useState("newest");
-  const [viewMode, setViewMode] = useState("grid"); // grid or list
+  const [viewMode, setViewMode] = useState("List"); // grid or list
   
   const handleClick = () => {
     editNote(Note.id, Note.etitle, Note.edescription, Note.etag);
@@ -76,12 +76,12 @@ function Notes(props) {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
           <h1 className="text-3xl font-bold text-gray-800 mb-4 md:mb-0">My Notes</h1>
           <div className="flex flex-wrap gap-2">
-            <button 
+            {/* <button 
               onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
               className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
             >
               {viewMode === "grid" ? "List View" : "Grid View"}
-            </button>
+            </button> */}
             <button 
               className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2"
               onClick={() => document.getElementById('addNoteSection').scrollIntoView({ behavior: 'smooth' })}
