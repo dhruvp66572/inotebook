@@ -42,7 +42,7 @@ const NoteState = (props) => {
   // Delete a Note
   const deleteNote = async (id) => {
     // API Call
-    const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+    await fetch(`${host}/api/notes/deletenote/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -60,32 +60,47 @@ const NoteState = (props) => {
   };
 
   // Edit a Note
-  const editNote = async (id, title, description, tag) => {
+const editNote = async (id, title, description, tag) => {
+  try {
     // API Call
-    const response =  await fetch(`${host}/api/notes/updatenote/${id}`, {
-      method: 'put',
+    const response = await fetch(`${host}/api/notes/updatenode/${id}`, {
+      method: 'PUT',
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-        localStorage.getItem('token'),
+        "auth-token": localStorage.getItem('token'),
       },
       body: JSON.stringify({ title, description, tag }),
     });
     
-    let newNotes = JSON.parse(JSON.stringify(notes));
-    // Logic to edit in client
-    for (let i = 0; i < notes.length; i++) {
-      const element = newNotes[i];
-
-      if (element._id === id) {
-        newNotes[i].title = title;
-        newNotes[i].description = description;
-        newNotes[i].tag = tag;
-        break;
-      }
+    let json;
+    try {
+      json = await response.json();
+    } catch (error) {
+      console.error("Error parsing JSON response:", error);
+      return false;
     }
+    
+    if (!response.ok) {
+      console.error("Error updating note:", json?.error || "Unknown error");
+      return false;
+    }
+    
+    // Logic to edit in client
+    const newNotes = notes.map(note => {
+      if (note._id === id) {
+        return { ...note, title, description, tag };
+      }
+      return note;
+    });
+    
     setNotes(newNotes);
-  };
+    return true;
+  } catch (error) {
+    console.error("Error in editNote:", error);
+    return false;
+  }
+};
+
 
   return (
     <NoteContext.Provider
